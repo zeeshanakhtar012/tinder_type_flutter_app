@@ -1,0 +1,32 @@
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    buildscript {
+        repositories {
+            google() // Ensure this is present
+            mavenCentral() // Optional, but often included
+        }
+        dependencies {
+            classpath 'com.android.tools.build:gradle:8.0.2' // Use the appropriate version for your project
+            classpath 'com.google.gms:google-services:4.4.2' // Google services plugin
+            classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.2' // Firebase Crashlytics plugin
+        }
+    }
+}
+
+
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}

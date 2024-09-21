@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1033447313519",
+    "firebase_url": "https://blaxity-8bddb-default-rtdb.firebaseio.com",
+    "project_id": "blaxity-8bddb",
+    "storage_bucket": "blaxity-8bddb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033447313519:android:0964845103bf1a53c4fd9a",
+        "android_client_info": {
+          "package_name": "codergize.com.blaxity"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQfJi4kelyyF5MeyyQ43nDrzUKbneQ_Dg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
