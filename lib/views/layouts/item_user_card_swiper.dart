@@ -86,13 +86,12 @@ class ItemUserCardSwiper extends StatelessWidget {
       },
       child: IntrinsicHeight(
         child: SizedBox(
-          height: height * .6,
+          height: 500.h,
           width: Get.width,
           child: Stack(
             children: [
               Positioned.fill(
                 child: Container(
-
                   // padding: EdgeInsets.symmetric(
                   //     vertical: 10.h, horizontal: 16.w),
                   margin: EdgeInsets.only(bottom: 16.h,),
@@ -107,7 +106,7 @@ class ItemUserCardSwiper extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           GradientText(
                             textAlign: TextAlign.start,
@@ -115,14 +114,14 @@ class ItemUserCardSwiper extends StatelessWidget {
                                 .partner2Name}" : "${user.fName}",
                             style: AppFonts.homeScreenText,
                             gradient: AppColors.buttonColor,
-                          ),
+                          ).marginOnly(right: 5.w),
                           if(user.verification !=null&&user.verification!.status!="pending")SvgPicture.asset(
                             "assets/icons/icon_correct.svg",
-                          ).marginSymmetric(horizontal: 5.sp),
+                          ).marginSymmetric(horizontal: 5.w),
                           if(user.goldenMember == 1) SvgPicture.asset(
                             "assets/icons/icon_dimond.svg",
                           ),
-                          // Spacer(),
+                          Spacer(),
                           IconButton(
                             onPressed: () {
                               // Get.bottomSheet(,);
@@ -169,7 +168,7 @@ class ItemUserCardSwiper extends StatelessWidget {
                               ),
                             );
                           }).marginOnly(
-                            left: 10.sp,
+                            left: 10.w,
                           ),
                         ],
                       ).marginSymmetric(horizontal: 16.w),
@@ -195,8 +194,8 @@ class ItemUserCardSwiper extends StatelessWidget {
                             children: [
                               Spacer(),
                               Container(
-                                height: 8.sp,
-                                width: 8.sp,
+                                height: 8.w,
+                                width: 8.w,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: (user.activeNow == "1")
@@ -299,7 +298,7 @@ class ItemUserCardSwiper extends StatelessWidget {
                                ),
                              ],
                            ),
-                         ).marginOnly(top: 8.sp),
+                         ).marginOnly(top: 8.h),
                        ):SizedBox();
                      }).marginSymmetric(horizontal: 16.w),
                       Row(
@@ -310,7 +309,7 @@ class ItemUserCardSwiper extends StatelessWidget {
                           Text(
                             "Description",
                             style: AppFonts.aboutDetails,
-                          ).marginOnly(left: 8.sp),
+                          ).marginOnly(left: 8.w),
                         ],
                       ).marginSymmetric(horizontal: 16.w,vertical: 10.h),
                       Text(maxLines: 2,overflow: TextOverflow.ellipsis,(user.userType == "couple" ? user.commonCoupleData==null?"No Description": user.commonCoupleData!.description ?? "No Description" : user.reference?.description ??
@@ -327,7 +326,7 @@ class ItemUserCardSwiper extends StatelessWidget {
                           Text(
                             "Desires",
                             style: AppFonts.aboutDetails,
-                          ).marginOnly(left: 8.sp),
+                          ).marginOnly(left: 8.w),
                         ],
                       ).marginSymmetric(horizontal: 16.w),
                       (desires.isNotEmpty) ? Row(
@@ -341,7 +340,7 @@ class ItemUserCardSwiper extends StatelessWidget {
                                   children: List.generate(
                                       desires.length>3?3:desires.length, (index) {
                                     return Container(
-                                      padding: EdgeInsets.only(left: 3.sp),
+                                      padding: EdgeInsets.only(left: 3.w),
                                       height: 28.92.h,
                                       width: 80.2.w,
                                       decoration: BoxDecoration(
@@ -356,7 +355,7 @@ class ItemUserCardSwiper extends StatelessWidget {
                                             color: Colors.white,
                                             fontSize: 10.37.sp,
                                           ),
-                                        ).marginOnly(left: 4.sp),
+                                        ).marginOnly(left: 4.w),
                                       ),
                                     ).marginOnly(right: 10.w);
                                   })
@@ -453,99 +452,111 @@ class ItemUserCardSwiper extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: EdgeInsets.all(20.sp),
-          height: 200.h,
+          padding: EdgeInsets.only(
+            top: 20.h,
+            left: 20.w,
+            right: 20.w
+
+          ),
+          height: 150.h,
           color: Colors.black,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              ListTile(
+              InkWell(
                 onTap: () {
                   Get.find<ControllerHome>().blockUser(blockedUserId: user.id!.toString());
                   Get.back();
                 },
-                trailing: Icon(
-                  CupertinoIcons.nosign,
-                  color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                 Text(
+                    "Block ${user.userType != "couple" ? "${user.fName}" : "${user
+                        .partner1Name}&${user.partner2Name}"}",
+                    style: TextStyle(
+                        color: Color(0xFFDD1A1A),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.sp
+                    ),),
+                    SvgPicture.asset("assets/icons/icon_block.svg")
+                          ]
                 ),
-                title: Text(
-                  "Block ${user.userType != "couple" ? "${user.fName}" : "${user
-                      .partner1Name}&${user.partner2Name}"}",
-                  style: TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14.sp
-                  ),),
               ),
-              ListTile(
-                onTap: () {
-                  TextEditingController reason = TextEditingController();
-                  Get.defaultDialog(
-                      content: Container(
-                        padding: EdgeInsets.all(20.sp),
-                        height: 150.h,
-                        // color: Colors.black,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
+              Divider(color: Colors.white.withOpacity(.2),thickness: 0.7,).marginOnly(bottom: 10.h,),
+              SizedBox(
+                height: 1.h,
+              ),
+              InkWell(
+                 onTap: () {
+                   TextEditingController reason = TextEditingController();
+                   Get.defaultDialog(
+                       content: Container(
+                         padding: EdgeInsets.all(20.sp),
+                         height: 150.h,
+                         // color: Colors.black,
+                         child: Column(
+                           mainAxisAlignment: MainAxisAlignment.start,
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           mainAxisSize: MainAxisSize.min,
+                           children: <Widget>[
+                             Text(
+                               "Report ${user.userType != "couple" ? "${user
+                                   .fName}" : "${user.partner1Name}&${user
+                                   .partner2Name}"}",
+                               style: AppFonts.subtitle,
+                             ),
+                             Container(
+                               height: 50.h,
+                               width: Get.width,
+                               margin: EdgeInsets.only(top: 10.h),
+                               padding: EdgeInsets.symmetric(horizontal: 10.w),
+                               decoration: BoxDecoration(
+                                 borderRadius: BorderRadius.circular(10),
+                                 border: Border.all(color: Color(0xFFA7713F)),
+                               ),
+                               child: TextField(
+                                 controller: reason,
+                                 decoration: InputDecoration(
+                                   border: InputBorder.none,
+                                   hintText: "Reason",
+                                 ),
+                               ),
+                             ),
+                           ],
+                         ),
+                       ),
+                       onConfirm: () {
+                         Get.find<ControllerHome>().reportUser(
+                           reason: reason.text, reportedUserId: user.id!.toString(),);
+                         Get.back();
+                         Get.back();
+                       },
+                       onCancel: () {
 
-                            Text(
-                              "Report ${user.userType != "couple" ? "${user
-                                  .fName}" : "${user.partner1Name}&${user
-                                  .partner2Name}"}",
-                              style: AppFonts.subtitle,
-                            ),
-                            Container(
-                              height: 50.h,
-                              width: Get.width,
-                              margin: EdgeInsets.only(top: 10.h),
-                              padding: EdgeInsets.symmetric(horizontal: 10.w),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: Color(0xFFA7713F)),
-                              ),
-                              child: TextField(
-                                controller: reason,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "Reason",
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      onConfirm: () {
-                        Get.find<ControllerHome>().reportUser(
-                          reason: reason.text, reportedUserId: user.id!.toString(),);
-                        Get.back();
-                        Get.back();
-                      },
-                      onCancel: () {
+                       }
+                   );
+                 },
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   children: [
 
-                      }
-                  );
-                },
-                trailing: Icon(
-                  CupertinoIcons.nosign,
-                  color: Colors.white,
-                ),
-                title: Text(
-                  "Report ${user.userType != "couple"
-                      ? "${user.fName}"
-                      : "${user.partner1Name}&${user.partner2Name}"}",
-                  style: TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14.sp
+                  Text(
+                    "Report ${user.userType != "couple"
+                        ? "${user.fName}"
+                        : "${user.partner1Name}&${user.partner2Name}"}",
+                    style: TextStyle(
+                        color: Color(0xFFDD1A1A),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.sp
+                    ),
                   ),
-                ),
-              ),
-
-
+                     SvgPicture.asset("assets/icons/icon_report.svg"),
+                   ]
+                 ),
+               ),
+              Divider(color: Colors.white.withOpacity(.2),thickness: 0.7,).marginOnly(bottom: 10.h,),
             ],
           ).marginSymmetric(
             horizontal: 15.sp,

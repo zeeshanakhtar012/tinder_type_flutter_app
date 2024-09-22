@@ -1,8 +1,10 @@
 import 'package:blaxity/constants/controller_get_groups.dart';
 import 'package:blaxity/views/screens/call/agora_constants.dart';
+import 'package:blaxity/views/screens/call/controller_call.dart';
 import 'package:flutter/material.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -35,106 +37,108 @@ class _AgoraVideoCallState extends State<AgoraVideoCall> {
 
   @override
   void initState() {
+    CallController callController=Get.put(CallController(token: widget.token, channelId: widget.channelId, isVideoCall: true));
     super.initState();
-    initAgora();
+    callController.initAgora();
   }
 
-  Future<void> initAgora() async {
-    try {
-      // Request necessary permissions
-      var cameraStatus = await Permission.camera.status;
-      var microphoneStatus = await Permission.microphone.status;
-
-      if (!cameraStatus.isGranted || !microphoneStatus.isGranted) {
-        await [Permission.microphone, Permission.camera].request();
-      }
-
-      // Initialize Agora engine
-      _engine = createAgoraRtcEngine();
-      await _engine.initialize(RtcEngineContext(appId: AgoraConstants.appId));
-
-      // Register event handlers before enabling video
-      _engine.registerEventHandler(
-        RtcEngineEventHandler(
-          onJoinChannelSuccess: (RtcConnection connection, int elapsed) {
-            setState(() {
-              _localUserJoined = true;
-              _statusMessage = 'Waiting for the other user to join...';
-            });
-            print('Successfully joined the channel: ${widget.channelId}');
-          },
-          onUserJoined: (RtcConnection connection, int remoteUid, int elapsed) {
-            setState(() {
-              _remoteUid = remoteUid;
-              _statusMessage = 'Connected';
-            });
-            print('Remote user joined: $remoteUid');
-          },
-          onUserOffline: (RtcConnection connection, int remoteUid, UserOfflineReasonType reason) {
-            setState(() {
-              _remoteUid = null;
-              _statusMessage = 'User disconnected';
-              Navigator.pop(context);
-            });
-            print('Remote user left: $remoteUid');
-          },
-        ),
-      );
-
-      // Enable video after initializing
-      await _engine.enableVideo();
-      await _engine.switchCamera(); // Set front camera by default
-
-      // Join the channel
-      await _engine.joinChannel(
-        token: widget.token,
-        channelId: widget.channelId,
-        options: const ChannelMediaOptions(
-          autoSubscribeAudio: true,
-          autoSubscribeVideo: true,
-          publishCameraTrack: true,
-          publishMicrophoneTrack: true,
-          clientRoleType: ClientRoleType.clientRoleBroadcaster,
-        ),
-        uid: 0, // Ensure uid is correctly set
-      );
-    } catch (e) {
-      setState(() {
-        _statusMessage = 'Error initializing Agora: $e';
-      });
-      print('Agora initialization error: $e');
-    }
-  }
-
-  Future<void> _toggleMute() async {
-    setState(() {
-      _isMuted = !_isMuted;
-    });
-    await _engine.muteLocalAudioStream(_isMuted);
-  }
-
-  Future<void> _toggleCamera() async {
-    setState(() {
-      _isCameraEnabled = !_isCameraEnabled;
-    });
-    await _engine.muteLocalVideoStream(!_isCameraEnabled);
-  }
-
-  Future<void> _switchCamera() async {
-    await _engine.switchCamera();
-  }
-
-  Future<void> _endCall() async {
-    await _engine.leaveChannel();
-    await _engine.release();
-    Navigator.pop(context);
-  }
-
-  @override
-  void dispose() {
-    _endCall();
-    super.dispose();
-  }
+  // Future<void> initAgora() async {
+  //   try {
+  //     // Request necessary permissions
+  //     var cameraStatus = await Permission.camera.status;
+  //     var microphoneStatus = await Permission.microphone.status;
+  //
+  //     if (!cameraStatus.isGranted || !microphoneStatus.isGranted) {
+  //       await [Permission.microphone, Permission.camera].request();
+  //     }
+  //
+  //     // Initialize Agora engine
+  //     _engine = createAgoraRtcEngine();
+  //     await _engine.initialize(RtcEngineContext(appId: AgoraConstants.appId));
+  //
+  //     // Register event handlers before enabling video
+  //     _engine.registerEventHandler(
+  //       RtcEngineEventHandler(
+  //         onJoinChannelSuccess: (RtcConnection connection, int elapsed) {
+  //           setState(() {
+  //             _localUserJoined = true;
+  //             _statusMessage = 'Waiting for the other user to join...';
+  //           });
+  //           print('Successfully joined the channel: ${widget.channelId}');
+  //         },
+  //         onUserJoined: (RtcConnection connection, int remoteUid, int elapsed) {
+  //           setState(() {
+  //             _remoteUid = remoteUid;
+  //             _statusMessage = 'Connected';
+  //           });
+  //           print('Remote user joined: $remoteUid');
+  //         },
+  //         onUserOffline: (RtcConnection connection, int remoteUid, UserOfflineReasonType reason) {
+  //           setState(() {
+  //             _remoteUid = null;
+  //             _statusMessage = 'User disconnected';
+  //             Navigator.pop(context);
+  //           });
+  //           print('Remote user left: $remoteUid');
+  //         },
+  //       ),
+  //     );
+  //
+  //     // Enable video after initializing
+  //     await _engine.enableVideo();
+  //     await _engine.switchCamera(); // Set front camera by default
+  //
+  //     // Join the channel
+  //
+  //     await _engine.joinChannel(
+  //       token: widget.token,
+  //       channelId: widget.channelId,
+  //       options: const ChannelMediaOptions(
+  //         autoSubscribeAudio: true,
+  //         autoSubscribeVideo: true,
+  //         publishCameraTrack: true,
+  //         publishMicrophoneTrack: true,
+  //         clientRoleType: ClientRoleType.clientRoleBroadcaster,
+  //       ),
+  //       uid: 0, // Ensure uid is correctly set
+  //     );
+  //   } catch (e) {
+  //     setState(() {
+  //       _statusMessage = 'Error initializing Agora: $e';
+  //     });
+  //     print('Agora initialization error: $e');
+  //   }
+  // }
+  //
+  // Future<void> _toggleMute() async {
+  //   setState(() {
+  //     _isMuted = !_isMuted;
+  //   });
+  //   await _engine.muteLocalAudioStream(_isMuted);
+  // }
+  //
+  // Future<void> _toggleCamera() async {
+  //   setState(() {
+  //     _isCameraEnabled = !_isCameraEnabled;
+  //   });
+  //   await _engine.muteLocalVideoStream(!_isCameraEnabled);
+  // }
+  //
+  // Future<void> _switchCamera() async {
+  //   await _engine.switchCamera();
+  // }
+  //
+  // Future<void> _endCall() async {
+  //   await _engine.leaveChannel();
+  //   await _engine.release();
+  //   Navigator.pop(context);
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   _endCall();
+  //   super.dispose();
+  // }
 
   Widget _renderLocalPreview() {
     if (_localUserJoined) {
@@ -211,6 +215,7 @@ class _AgoraVideoCallState extends State<AgoraVideoCall> {
 
   @override
   Widget build(BuildContext context) {
+    CallController callController =Get.find<CallController>();
     return Scaffold(
       backgroundColor: Colors.black87,
       body: SafeArea(
@@ -235,23 +240,23 @@ class _AgoraVideoCallState extends State<AgoraVideoCall> {
                       CircleButton(
                         icon: _isMuted ? Icons.mic_off : Icons.mic,
                         iconColor: _isMuted ? Colors.red : Colors.white,
-                        onPressed: _toggleMute,
+                        onPressed: callController.toggleMute,
                       ),
                       CircleButton(
                         icon: Icons.call_end,
                         backgroundColor: Colors.red,
                         iconColor: Colors.white,
-                        onPressed: _endCall,
+                        onPressed: callController.endCall,
                       ),
                       CircleButton(
                         icon: _isCameraEnabled ? Icons.videocam : Icons.videocam_off,
                         iconColor: _isCameraEnabled ? Colors.green : Colors.white,
-                        onPressed: _toggleCamera,
+                        onPressed: callController.toggleCamera,
                       ),
                       CircleButton(
                         icon: Icons.switch_camera,
                         iconColor: Colors.white,
-                        onPressed: _switchCamera,
+                        onPressed: callController.switchCamera,
                       ),
                     ],
                   ),

@@ -17,6 +17,7 @@ import '../../widgets/my_input_feild.dart';
 
 class ScreenCreateGroup extends StatelessWidget {
   Group? group;
+
   final ImagePicker _picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
@@ -49,6 +50,9 @@ class ScreenCreateGroup extends StatelessWidget {
                 style: AppFonts.titleLogin,
                 text: "Create Group",
                 gradient: AppColors.buttonColor,
+              ).marginSymmetric(
+                  // vertical: 12.h,
+                  horizontal: 8.w
               ),
               Align(
                 alignment: Alignment.centerLeft,
@@ -59,6 +63,9 @@ class ScreenCreateGroup extends StatelessWidget {
                     fontSize: 12.sp,
                   ),
                 ),
+              ).marginSymmetric(
+                  // vertical: 12.h,
+                  horizontal: 8.w
               ),
               InkWell(
                 onTap: () => _pickImage(context, controller),
@@ -105,34 +112,40 @@ class ScreenCreateGroup extends StatelessWidget {
                   ),
                 ) : SizedBox();
               }),
-              GradientDivider(
-                thickness: 0.6,
-                gradient: AppColors.buttonColor,
-                width: Get.width,
+              GradientDivider(thickness: 0.3,
+                  gradient: AppColors.whiteColorGradient,
+                  width: Get.width).marginSymmetric(
+                horizontal: 8.w,
+                vertical: 12.h,
               ),
               MyInputField(
                 hint: "Title",
                 controller: controller.titleController,
               ),
-              GradientDivider(
-                thickness: 0.3,
-                gradient: AppColors.buttonColor,
-                width: Get.width,
+              GradientDivider(thickness: 0.3,
+                  gradient: AppColors.whiteColorGradient,
+                  width: Get.width).marginSymmetric(
+                horizontal: 8.w,
+                // vertical: 12.h,
               ),
               MyInputField(
                 hint: "Description",
                 controller: controller.descriptionController,
               ),
-              GradientDivider(
-                thickness: 0.3,
-                gradient: AppColors.buttonColor,
-                width: Get.width,
+              GradientDivider(thickness: 0.3,
+                  gradient: AppColors.whiteColorGradient,
+                  width: Get.width).marginSymmetric(
+                horizontal: 8.w,
+                // vertical: 4.h,
               ),
               GradientText(
                 gradient: AppColors.buttonColor,
                 text: "Set Your Group Privacy",
                 style: AppFonts.subscriptionTitle,
-              ).marginOnly(top: 15.sp),
+              ).marginSymmetric(
+                vertical: 12.h,
+                horizontal: 8.w
+              ),
               Obx(
                     () =>
                     CustomCheckbox(
@@ -142,6 +155,9 @@ class ScreenCreateGroup extends StatelessWidget {
                       },
                       titleText: "Public",
                     ).paddingSymmetric(vertical: 6.sp),
+              ).marginSymmetric(
+                  // vertical: 12.h,
+                  horizontal: 8.w
               ),
               Obx(
                     () =>
@@ -152,13 +168,24 @@ class ScreenCreateGroup extends StatelessWidget {
                       },
                       titleText: "Private",
                     ).paddingSymmetric(vertical: 6.sp),
+              ).marginSymmetric(
+                  // vertical: 12.h,
+                  horizontal: 8.w
+              ),
+              GradientDivider(thickness: 0.3,
+                  gradient: AppColors.whiteColorGradient,
+                  width: Get.width).marginSymmetric(
+                horizontal: 8.w,
               ),
               GradientText(
                 gradient: AppColors.buttonColor,
                 text:
                 "Group Capacity Options",
                 style: AppFonts.subscriptionTitle,
-              ).paddingOnly(top: 10.sp),
+              ).marginSymmetric(
+                  vertical: 12.h,
+                  horizontal: 8.w
+              ),
               Obx(
                     () =>
                     CustomCheckbox(
@@ -168,6 +195,9 @@ class ScreenCreateGroup extends StatelessWidget {
                       },
                       titleText: "Limited",
                     ).paddingSymmetric(vertical: 6.sp),
+              ).marginSymmetric(
+                  // vertical: 12.h,
+                  horizontal: 8.w
               ),
               Obx(
                     () =>
@@ -178,6 +208,9 @@ class ScreenCreateGroup extends StatelessWidget {
                       },
                       titleText: "Open",
                     ).marginSymmetric(vertical: 6.sp),
+              ).marginSymmetric(
+                  // vertical: 12.h,
+                  horizontal: 8.w
               ),
               Align(
                 alignment: Alignment.centerLeft,
@@ -185,10 +218,14 @@ class ScreenCreateGroup extends StatelessWidget {
                   "If Limited: Set Members limit",
                   style: AppFonts.subtitleImagePickerButtonColor,
                 ),
-              ).marginOnly(top: 25.sp),
+              ).marginSymmetric(
+                  vertical: 12.h,
+                  horizontal: 8.w
+              ),
               Obx(
                     () =>
-                (!controller.capacityLimited.value) ? SizedBox() : Row(
+                (!controller.capacityLimited.value) ? SizedBox() :
+                Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -227,15 +264,20 @@ class ScreenCreateGroup extends StatelessWidget {
                       left: 5.sp,
                     ),
                   ],
-                ).marginOnly(
-                  top: 5.sp,
-                ),
+                ).marginSymmetric(
+                    // vertical: 12.h,
+                    horizontal: 8.w
+                )
               ),
-              GradientDivider(
-                thickness: 0.6,
-                gradient: AppColors.buttonColor,
-                width: Get.width,
-              ).marginOnly(top: 6.sp),
+              GradientDivider(thickness: 0.3,
+                  gradient: AppColors.whiteColorGradient,
+                  width: Get.width).marginSymmetric(
+                horizontal: 8.w,
+                vertical: 4.h,
+              ),
+              SizedBox(
+                height: 50.h
+              ),
               Obx(() {
                 return CustomButton(
                   loading: controller.isLoading.value,
@@ -250,11 +292,12 @@ class ScreenCreateGroup extends StatelessWidget {
                     }
                   },
                 );
-              }).paddingOnly(
-                top: 50.h,
+              }).marginSymmetric(
+                  vertical: 12.h,
+                  horizontal: 8.w
               ),
             ],
-          ).marginSymmetric(horizontal: 15.sp, vertical: 15.sp),
+          ).marginSymmetric(horizontal: 15.w, vertical: 15.h),
         ),
       ),
     );

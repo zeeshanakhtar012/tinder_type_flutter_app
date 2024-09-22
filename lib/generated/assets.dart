@@ -35,6 +35,7 @@ class Assets {
   static const String authenticationControllersControllerSignIn = 'lib/controllers/authentication_controllers/controller_sign_in_.dart';
   static const String callAgoraConstants = 'lib/views/screens/call/agora_constants.dart';
   static const String callAgoraScreen = 'lib/views/screens/call/agora_screen.dart';
+  static const String callControllerCall = 'lib/views/screens/call/controller_call.dart';
   static const String callScreenAgoraAudioCall = 'lib/views/screens/call/screen_agora_audio_call.dart';
   static const String callScreenAgoraVideoCall = 'lib/views/screens/call/screen_agora_video_call.dart';
   static const String constantsApiEndPoint = 'lib/constants/ApiEndPoint.dart';

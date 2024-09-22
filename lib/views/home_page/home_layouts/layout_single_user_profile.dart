@@ -1,10 +1,10 @@
 import 'package:blaxity/constants/extensions/time_ago.dart';
+import 'package:blaxity/controllers/SettingController.dart';
 import 'package:blaxity/views/screens/screen_be_seen_details.dart';
 import 'package:blaxity/views/screens/screen_subscription.dart';
 import 'package:blaxity/views/screens/screen_view_connections.dart';
 import 'package:blaxity/views/screens/screen_view_events.dart';
 import 'package:blaxity/views/screens/screen_view_user_photos.dart';
-import 'package:blaxity/views/screens/single_user_screens/screen_blaxiter_subscription_single_user.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'dart:ui';
@@ -32,11 +32,7 @@ import '../../../widgets/custom_divider_gradient.dart';
 import '../../../widgets/custom_selectable_button.dart';
 import '../../layouts/item_event_profile.dart';
 import '../../layouts/item_profile_details.dart';
-import '../../screen_test.dart';
-import '../../screens/screen_advance_filter.dart';
-import '../../screens/screen_match_person_profile.dart';
-import '../../screens/screen_edit_profile.dart';
-import '../../screens/screen_subscription_type_profile.dart';
+
 import '../../screens/screen_userChat.dart';
 import '../../screens/screen_view_description.dart';
 
@@ -64,18 +60,22 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
   @override
   Widget build(BuildContext context) {
     // log(user);
-    final height = MediaQuery.sizeOf(context).height * 1;
-    final width = MediaQuery.sizeOf(context).width * 1;
+    final height = MediaQuery
+        .sizeOf(context)
+        .height * 1;
+    final width = MediaQuery
+        .sizeOf(context)
+        .width * 1;
 
     return Scaffold(
       appBar: (widget.isMatch == true)
           ? AppBar(
-              centerTitle: true,
-              title: Text(
-                "Profile",
-                style: TextStyle(color: Color(0xFFA7713F), fontSize: 20.sp),
-              ),
-            )
+        centerTitle: true,
+        title: Text(
+          "Profile",
+          style: TextStyle(color: Color(0xFFA7713F), fontSize: 20.sp),
+        ),
+      )
           : null,
       body: FutureBuilder<UserResponse>(
           future: Get.find<ControllerHome>()
@@ -84,8 +84,8 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                   child: CircularProgressIndicator(
-                color: Color(0xFFA7713F),
-              ));
+                    color: Color(0xFFA7713F),
+                  ));
             }
             if (snapshot.hasError) {
               return Center(child: Text('Low Internet Connection'));
@@ -93,7 +93,7 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
             UserResponse userResponse = snapshot.data!;
             User user = userResponse.user;
             log(user.id.toString());
-            if (widget.isMatch==true) {
+            if (widget.isMatch == true) {
               Get.find<ControllerHome>().viewUserCount(int.parse(user!.id!));
             }
 
@@ -118,7 +118,11 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                           image: DecorationImage(
                               fit: BoxFit.cover,
                               image: NetworkImage(
-                                  "${APiEndPoint.imageUrl}${user.singleRecentImage != null ? user.singleRecentImage!.userRecentImages!.first! : "https://via.placeholder.com/250"}"))),
+                                  "${APiEndPoint.imageUrl}${user
+                                      .singleRecentImage != null
+                                      ? user.singleRecentImage!
+                                      .userRecentImages!.first!
+                                      : "https://via.placeholder.com/250"}"))),
                       child: ShaderMask(
                         shaderCallback: (Rect bounds) {
                           return AppColors.buttonColor.createShader(bounds);
@@ -201,7 +205,7 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                                           bottomRight: Radius.circular(10))),
                                   child: Center(
                                     child: Text(
-                                      "Level 0",
+                                      "Level",
                                       style: TextStyle(
                                         fontSize: 12.sp,
                                         color: Colors.white,
@@ -240,7 +244,8 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                               Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "${getDaysSinceFromDateString(user.createdAt!)}",
+                                  "${getDaysSinceFromDateString(
+                                      user.createdAt!)}",
                                   style: TextStyle(
                                     fontSize: 18.sp,
                                     fontWeight: FontWeight.w600,
@@ -260,7 +265,8 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                                           bottomRight: Radius.circular(10))),
                                   child: Center(
                                     child: Text(
-                                      "Year 0",
+                                      "Year",
+
                                       style: TextStyle(
                                         fontSize: 12.sp,
                                         color: Colors.white,
@@ -302,7 +308,8 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                               Align(
                                 alignment: Alignment.center,
                                 child: Icon(
-                                  user.verified == 1 ? Icons.done : Icons.close,
+                                  user.verification!.status != "pending" ? Icons
+                                      .done : Icons.close,
                                   color: Colors.white,
                                 ),
                               ),
@@ -310,7 +317,7 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                                 alignment: Alignment.bottomCenter,
                                 child: Text(
                                   textAlign: TextAlign.center,
-                                  user.verified == 1
+                                  user.verification!.status != "pending"
                                       ? "Verified"
                                       : "Not Verified",
                                   style: TextStyle(
@@ -327,8 +334,9 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                         ),
                       ],
                     ),
-                    if(user!.verification!.status=="pending"&&widget.isMatch==false)Container(
-                      height:184.h,
+                    if(user!.verification!.status == "pending" &&
+                        widget.isMatch == false)Container(
+                      height: 184.h,
                       width: 335.w,
                       padding: EdgeInsets.all(8.0),
                       decoration: BoxDecoration(
@@ -355,14 +363,15 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                             vertical: 8.sp,
                           ),
                           InkWell(
-                            onTap: (){
+                            onTap: () {
                               Get.to(ScreenVerification());
 
-                              if (user.verification!.status=="pending"&&user.verification!.selfie==null) {
-
+                              if (user.verification!.status == "pending" &&
+                                  user.verification!.selfie == null) {
                                 Get.to(ScreenVerification());
-                              }  else{
-                                FirebaseUtils.showError("Your profile in Pending for Verification");
+                              } else {
+                                FirebaseUtils.showError(
+                                    "Your profile in Pending for Verification");
                               }
                             },
                             child: Container(
@@ -374,7 +383,10 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                               ),
                               child: Center(
                                 child: Text(
-                                   user.verification!.status=="pending"&&user.verification!.selfie==null?"Start Verification":"Pending", style: TextStyle(
+                                  user.verification!.status == "pending" &&
+                                      user.verification!.selfie == null
+                                      ? "Start Verification"
+                                      : "Pending", style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 15.66.sp,
                                   fontWeight: FontWeight.w700,
@@ -390,10 +402,19 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                       top: 30.sp,
                     ),
                     Obx(() {
-                      final currentUser = Get.find<ControllerHome>().user.value!.user;
+                      final currentUser = Get
+                          .find<ControllerHome>()
+                          .user
+                          .value!
+                          .user;
 
                       // Check if match is false or if the user is a golden member
-                      if (widget.isMatch == false || Get.find<ControllerHome>().user.value!.user.goldenMember != 0) {
+                      if (widget.isMatch == false || Get
+                          .find<ControllerHome>()
+                          .user
+                          .value!
+                          .user
+                          .goldenMember != 0) {
                         // Show all content (no need to check the plan)
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -417,7 +438,7 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                                 },
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Expanded(
                                       child: SingleChildScrollView(
@@ -425,28 +446,34 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                                         child: Row(
                                           children: List.generate(
                                             user.singleRecentImage!
-                                                .userRecentImages!.length>3?3:user.singleRecentImage!.userRecentImages!.length,
-                                            (index) => Container(
-                                              width: 97.w,
-                                              height: 152.h,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF353535),
-                                                borderRadius:
+                                                .userRecentImages!.length > 3
+                                                ? 3
+                                                : user.singleRecentImage!
+                                                .userRecentImages!.length,
+                                                (index) =>
+                                                Container(
+                                                  width: 97.w,
+                                                  height: 152.h,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xFF353535),
+                                                    borderRadius:
                                                     BorderRadius.circular(10),
-                                                border: Border.all(
-                                                    width: 2.w,
-                                                    color: Color(0xFFA7713F)),
-                                                image: DecorationImage(
-                                                  fit: BoxFit.cover,
-                                                  image: NetworkImage(
-                                                    APiEndPoint.imageUrl +
-                                                        user.singleRecentImage!
+                                                    border: Border.all(
+                                                        width: 2.w,
+                                                        color: Color(
+                                                            0xFFA7713F)),
+                                                    image: DecorationImage(
+                                                      fit: BoxFit.cover,
+                                                      image: NetworkImage(
+                                                        APiEndPoint.imageUrl +
+                                                            user
+                                                                .singleRecentImage!
                                                                 .userRecentImages![
                                                             index],
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
-                                            ).marginOnly(right: 6.w),
+                                                ).marginOnly(right: 6.w),
                                           ),
                                         ),
                                       ),
@@ -466,79 +493,90 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                             GestureDetector(
                               onTap: () {
                                 Get.to(ScreenViewConnections(
-                                    connections: snapshot.data!.Connections!, name: user.fName!,));
+                                  connections: snapshot.data!.Connections!,
+                                  name: user.fName!,));
                               },
                               child: Row(
                                 children: [
                                   Expanded(
                                     child: (snapshot
-                                            .data!.Connections!.isNotEmpty)
+                                        .data!.Connections!.isNotEmpty)
                                         ? SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: Row(
-                                              children: List.generate(
-                                                  snapshot.data!.Connections!
-                                                      .length>3?3:snapshot.data!.Connections!.length, (index) {
-                                                User _user = snapshot
-                                                    .data!.Connections![index];
-                                                return Container(
-                                                  height: 39.33.h,
-                                                  width: 39.33.w,
-                                                  margin: EdgeInsets.only(
-                                                      right: 5.w,bottom: 8.h),
-                                                  padding: EdgeInsets.all(4.0),
-                                                  decoration: BoxDecoration(
-                                                    // gradient: AppColors.buttonColor,
-                                                    border: Border.all(
-                                                      width: 2.w,
-                                                      color: Color(0xFFA7713F),
-                                                    ),
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Column(
-                                                    children: [
-                                                      ShaderMask(
-                                                        shaderCallback:
-                                                            (Rect bounds) {
-                                                          return AppColors
-                                                              .buttonColor
-                                                              .createShader(
-                                                                  bounds);
-                                                        },
-                                                        child: (_user
-                                                                    .userType ==
-                                                                "couple")
-                                                            ? Icon(
-                                                                Icons.group,
-                                                                size: 15.h,
-                                                              )
-                                                            : Icon(
-                                                                Icons.person,
-                                                                size: 15.h,
-                                                              ),
-                                                      ),
-                                                      Text(
-                                                        "${_user.userType == "couple" ? "${_user.partner1Name![0].toUpperCase()}${_user.partner1Name!.substring(1)}" : "${_user.fName == null ? "" : _user.fName![0].toUpperCase()}"}",
-                                                        style: TextStyle(
-                                                          fontSize: 6.sp,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.white,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              }),
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        children: List.generate(
+                                            snapshot.data!.Connections!
+                                                .length > 3 ? 3 : snapshot.data!
+                                                .Connections!.length, (index) {
+                                          User _user = snapshot
+                                              .data!.Connections![index];
+                                          return Container(
+                                            height: 39.33.h,
+                                            width: 39.33.w,
+                                            margin: EdgeInsets.only(
+                                                right: 5.w, bottom: 8.h),
+                                            padding: EdgeInsets.all(4.0),
+                                            decoration: BoxDecoration(
+                                              // gradient: AppColors.buttonColor,
+                                              border: Border.all(
+                                                width: 2.w,
+                                                color: Color(0xFFA7713F),
+                                              ),
+                                              shape: BoxShape.circle,
                                             ),
-                                          )
+                                            child: Column(
+                                              children: [
+                                                ShaderMask(
+                                                  shaderCallback:
+                                                      (Rect bounds) {
+                                                    return AppColors
+                                                        .buttonColor
+                                                        .createShader(
+                                                        bounds);
+                                                  },
+                                                  child: (_user
+                                                      .userType ==
+                                                      "couple")
+                                                      ? Icon(
+                                                    Icons.group,
+                                                    size: 15.h,
+                                                  )
+                                                      : Icon(
+                                                    Icons.person,
+                                                    size: 15.h,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "${_user.userType == "couple"
+                                                      ? "${_user
+                                                      .partner1Name![0]
+                                                      .toUpperCase()}${_user
+                                                      .partner1Name!.substring(
+                                                      1)}"
+                                                      : "${_user.fName == null
+                                                      ? ""
+                                                      : _user.fName![0]
+                                                      .toUpperCase()}"}",
+                                                  style: TextStyle(
+                                                    fontSize: 6.sp,
+                                                    fontWeight:
+                                                    FontWeight.bold,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                      ),
+                                    )
                                         : Text("No Connections"),
                                   ),
                                   if (snapshot.data!.Connections != null &&
                                       snapshot.data!.Connections!.isNotEmpty)
                                     GradientText(
                                       text:
-                                          '+ ${snapshot.data!.Connections!.length}',
+                                      '+ ${snapshot.data!.Connections!.length}',
                                       style: AppFonts.homeScreenText,
                                       gradient: AppColors.buttonColor,
                                     ).marginSymmetric(
@@ -558,55 +596,65 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                               thickness: 0.5,
                               height: 0,
                             ),
-                            GradientText(
-                              text: 'Events',
-                              style: AppFonts.homeScreenText,
-                              gradient: AppColors.buttonColor,
-                            ).marginOnly(top: 15.h),
-                            if (user.eventsAction != null)
-                              GestureDetector(
-                                onTap: () {
-                                  Get.to(ScreenViewEvents(
-                                      eventActions: user.eventsAction!));
-                                },
-                                child: Row(
-                                  children: [
-                                    (user.eventsAction != null&&user.eventsAction!.isNotEmpty)
-                                        ? Row(
-                                      children: List.generate(
-                                              user.eventsAction!.length > 2
-                                                  ? 2
-                                                  : user.eventsAction!.length,
-                                              (index) {
-                                                return ItemUserEventProfile(
-                                                  event:
-                                                      user.eventsAction![index],
-                                                );
-                                              },
-                                            )
+                            Obx(() {
+                              return (Get.find<SettingController>().isShowEvent.value == true)?SizedBox():Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  GradientText(
+                                    text: 'Events',
+                                    style: AppFonts.homeScreenText,
+                                    gradient: AppColors.buttonColor,
+                                  ).marginOnly(top: 15.h),
+                                  if (user.eventsAction != null)
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.to(ScreenViewEvents(
+                                            eventActions: user.eventsAction!));
+                                      },
+                                      child: Row(
+                                        children: [
+                                          (user.eventsAction != null &&
+                                              user.eventsAction!.isNotEmpty)
+                                              ? Row(
+                                              children: List.generate(
+                                                user.eventsAction!.length > 2
+                                                    ? 2
+                                                    : user.eventsAction!.length,
+                                                    (index) {
+                                                  return ItemUserEventProfile(
+                                                    event:
+                                                    user.eventsAction![index],
+                                                  );
+                                                },
+                                              )
 
-                                    ):Text("No Events"),
-                                    if (user.eventsAction!.length >= 3)
-                                      GradientText(
-                                        text: '+ ${user.eventsAction!.length}',
-                                        style: TextStyle(fontSize: 16.sp),
-                                        gradient: AppColors.buttonColor,
-                                      ).marginSymmetric(
-                                        horizontal: 6.sp,
-                                      ),
-                                    Spacer(),
-                                    Icon(
-                                      Icons.arrow_forward_ios_rounded,
-                                      size: 24,
+                                          ) : Text("No Events"),
+                                          if (user.eventsAction!.length >= 3)
+                                            GradientText(
+                                              text: '+ ${user.eventsAction!
+                                                  .length}',
+                                              style: TextStyle(fontSize: 16.sp),
+                                              gradient: AppColors.buttonColor,
+                                            ).marginSymmetric(
+                                              horizontal: 6.sp,
+                                            ),
+                                          Spacer(),
+                                          Icon(
+                                            Icons.arrow_forward_ios_rounded,
+                                            size: 24,
+                                          ),
+                                        ],
+                                      ).marginSymmetric(vertical: 6.h),
                                     ),
-                                  ],
-                                ).marginSymmetric(vertical: 6.h),
-                              ),
-                            Divider(
-                              color: Colors.white,
-                              thickness: 0.5,
-                              height: 0,
-                            ),
+                                  Divider(
+                                    color: Colors.white,
+                                    thickness: 0.5,
+                                    height: 0,
+                                  ),
+                                ],
+                              );
+                            }),
+
                             GradientText(
                               text: 'About',
                               style: AppFonts.homeScreenText,
@@ -620,7 +668,7 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                                   description: user.reference == null
                                       ? "No Description"
                                       : user.reference!.description ??
-                                          "No Description",
+                                      "No Description",
                                 ));
                               },
                               child: Row(
@@ -631,7 +679,7 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                                       user.reference == null
                                           ? "No Description"
                                           : user.reference!.description ??
-                                              "No Description",
+                                          "No Description",
                                       trimLines: 1,
                                       colorClickableText: Colors.blue,
                                       trimMode: TrimMode.Line,
@@ -676,9 +724,9 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                                   ),
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     children: [
                                       GestureDetector(
                                           onTap: () {
@@ -700,17 +748,28 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          if(Get.find<ControllerHome>().user.value!.user.goldenMember==1&&Get.find<ControllerHome>().user.value!.user.message_count!>0) {
+                                          if (Get
+                                              .find<ControllerHome>()
+                                              .user
+                                              .value!
+                                              .user
+                                              .goldenMember == 1 && Get
+                                              .find<ControllerHome>()
+                                              .user
+                                              .value!
+                                              .user
+                                              .message_count! > 0) {
                                             log("User id ${user.id}");
                                             Get.to(ScreenUserChat(
                                               usersList: [user],
                                             ));
                                           }
-                                          else{
+                                          else {
                                             FirebaseUtils.showError(
                                                 'You have no swipes left. Please buy more swipes or become a golden member for unlimited swipes!'
                                             );
-                                            Get.to(ScreenSubscription(isHome: true,));
+                                            Get.to(ScreenSubscription(
+                                              isHome: true,));
                                           }
                                         },
                                         child: Stack(
@@ -718,7 +777,7 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                                             CircleAvatar(
                                               radius: 22.r,
                                               backgroundColor:
-                                                  Color(0xFF1D1D1D),
+                                              Color(0xFF1D1D1D),
                                               child: SvgPicture.asset(
                                                 "assets/icons/icon_chat.svg",
                                               ).marginSymmetric(
@@ -744,7 +803,7 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                                       GestureDetector(
                                         onTap: () {
                                           LikeController likeController =
-                                              Get.put(LikeController());
+                                          Get.put(LikeController());
                                           likeController.likeEntity(
                                               likedUserId: int.parse(user.id!));
                                         },
@@ -804,7 +863,7 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                                     ),
                                     TextSpan(
                                       text:
-                                          "to view full profiles\nand much more.",
+                                      "to view full profiles\nand much more.",
                                       style: TextStyle(
                                         color: Color(0xffD0D0D0),
                                         fontSize: 14.sp,
@@ -824,7 +883,7 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                                   decoration: BoxDecoration(
                                     gradient: AppColors.buttonColor,
                                     borderRadius:
-                                        BorderRadius.circular(15.66.r),
+                                    BorderRadius.circular(15.66.r),
                                   ),
                                   child: Center(
                                     child: Text(
@@ -857,7 +916,7 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                           MyInputField(
                             padding: EdgeInsets.zero,
                             onTap: () {
-                              Get.to(ScreenSubscriptionType());
+                              // Get.to(ScreenSubscription(isHome: isHome));
                             },
                             hint: user.pmType ?? "No ",
                             suffix: Icon(
@@ -872,7 +931,12 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                             thickness: 0.5,
                             height: 0,
                           ),
-                          if(Get.find<ControllerHome>().user.value!.user.boostStatus=="0")CustomSelectbaleButton(
+                          if(Get
+                              .find<ControllerHome>()
+                              .user
+                              .value!
+                              .user
+                              .boostStatus == "0")CustomSelectbaleButton(
                             isSelected: true,
                             borderRadius: BorderRadius.circular(20),
                             imageUrl: "assets/icons/icon_flash_png.png",
@@ -887,7 +951,12 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                           ).marginOnly(
                             top: 20.sp,
                           ),
-                          if (Get.find<ControllerHome>().user.value!.user.goldenMember == 0)
+                          if (Get
+                              .find<ControllerHome>()
+                              .user
+                              .value!
+                              .user
+                              .goldenMember == 0)
                             Container(
                               height: 184.h,
                               width: 335.w,
@@ -927,7 +996,7 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                                         ),
                                         TextSpan(
                                           text:
-                                              "to view full profiles\nand much more.",
+                                          "to view full profiles\nand much more.",
                                           style: TextStyle(
                                             color: Color(0xffD0D0D0),
                                             fontSize: 14.sp,
@@ -947,7 +1016,7 @@ class _LayoutSingleUserProfileState extends State<LayoutSingleUserProfile> {
                                       decoration: BoxDecoration(
                                         gradient: AppColors.buttonColor,
                                         borderRadius:
-                                            BorderRadius.circular(15.66.r),
+                                        BorderRadius.circular(15.66.r),
                                       ),
                                       child: Center(
                                         child: Text(

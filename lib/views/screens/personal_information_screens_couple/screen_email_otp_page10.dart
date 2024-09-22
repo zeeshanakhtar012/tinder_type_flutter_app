@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:blaxity/constants/firebase_utils.dart';
 import 'package:blaxity/controllers/authentication_controllers/controller_registration.dart';
 import 'package:blaxity/views/screens/screen_update_password.dart';
@@ -10,7 +12,9 @@ import 'package:timer_count_down/timer_count_down.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
 import '../../../controllers/authentication_controllers/controller_forgot_password.dart';
+import '../../../widgets/custom_divider_gradient.dart';
 import '../../../widgets/custom_selectable_button.dart';
+import '../../../widgets/my_input_feild.dart';
 import '../../../widgets/pin_put.dart';
 
 class ScreenEmailOTP extends StatelessWidget {
@@ -142,27 +146,27 @@ class ScreenEmailOTP extends StatelessWidget {
                 ),
               ],
             ),
-            // if(verificationType == "resetPassword")
-            //   MyInputField(
-            //     isPasswordField: true,
-            //     controller: controllerResetPassword.password,
-            //     hint: "Password",
-            //   ).marginOnly(
-            //     top: 15.sp,
-            //   ),
-            //    GradientDivider(
-            //      thickness: 0.3, gradient: AppColors.buttonColor, width: Get.width,
-            //     ),
-            //   MyInputField(
-            //   isPasswordField: true,
-            //   controller: controllerResetPassword.confirmPassword,
-            //   hint: "Confirm Password",
-            //   ).marginOnly(
-            //   top: 15.sp,
-            //   ),
-            //   GradientDivider(
-            //   thickness: 0.3, gradient: AppColors.buttonColor, width: Get.width,
-            //   ),
+            if(verificationType == "resetPassword")
+              MyInputField(
+                isPasswordField: true,
+                controller: controllerResetPassword.password,
+                hint: "Password",
+              ).marginOnly(
+                top: 15.sp,
+              ),
+               GradientDivider(
+                 thickness: 0.3, gradient: AppColors.buttonColor, width: Get.width,
+                ),
+              MyInputField(
+              isPasswordField: true,
+              controller: controllerResetPassword.confirmPassword,
+              hint: "Confirm Password",
+              ).marginOnly(
+              top: 15.sp,
+              ),
+              GradientDivider(
+              thickness: 0.3, gradient: AppColors.buttonColor, width: Get.width,
+              ),
             Spacer(),
             Obx(() {
               return CustomSelectbaleButton(
@@ -170,7 +174,13 @@ class ScreenEmailOTP extends StatelessWidget {
                      // Use the appropriate controller
                 onTap: () async {
                   if (controllerRegistration.otpController.text.isNotEmpty) {
-                    await controllerRegistration.verifyOtp(email: email, id: id??"", link: link??"",);
+                    if (verificationType=="resetPassword") {
+                      log(verificationType.toString());
+                      String opt = controllerRegistration.otpController.text;
+                     await controllerResetPassword.UpdatePassword(email: email, otp: opt);
+                    }  else{
+                      await controllerRegistration.verifyOtp(email: email, id: id??"", link: link??"",);
+                    }
                   }
                   else{
                    FirebaseUtils.showError("Please Enter OTP");

@@ -83,7 +83,7 @@ RxBool loading=RxBool(false);
                       size: 8.sp,
                       CupertinoIcons.location_solid,
                       color: Color(0xFFA7713F),).marginOnly(
-                      left: 5.sp,
+                      left: 5.w,
                     ),
                     Text("${getDistance(Get
                         .find<ControllerHome>()
@@ -110,7 +110,7 @@ RxBool loading=RxBool(false);
                 Text("Requested to join your event"),
               ],
             ).marginOnly(
-              left: 6.sp,
+              left: 6.w,
             ),
             Spacer(),
             IconButton(onPressed: () {},
@@ -118,7 +118,7 @@ RxBool loading=RxBool(false);
                   color: Colors.white,))
           ],
         ).marginOnly(
-          top: 20.sp,
+          top: 20.h,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -148,18 +148,18 @@ RxBool loading=RxBool(false);
                 },
               );
             }).marginOnly(
-              left: 15.sp,
+              left: 15.h,
             ),
             SelectableButton(
               text: 'Message',
               isSelected: false,
               onTap: () {},
             ).marginOnly(
-              left: 15.sp,
+              left: 15.h,
             ),
           ],
         ).marginOnly(
-          top: 20.sp,
+          top: 20.h,
         ),
         // Add other content here
       ],

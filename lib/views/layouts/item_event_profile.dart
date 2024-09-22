@@ -112,7 +112,7 @@ class ItemEventProfile extends StatelessWidget {
                       },
                       child: SvgPicture.asset("assets/icons/eve.svg"),
                     ),
-                    SizedBox(width: 5.sp),
+                    SizedBox(width: 5.w),
                     Text(
                       "${event.createdAt}",
                       style: TextStyle(
@@ -131,7 +131,7 @@ class ItemEventProfile extends StatelessWidget {
                       },
                       child: SvgPicture.asset("assets/icons/time.svg"),
                     ),
-                    SizedBox(width: 5.sp),
+                    SizedBox(width: 5.w),
                     Text(
                       "${event.time}",
                       style: TextStyle(
@@ -276,7 +276,7 @@ class ItemUserEventProfile extends StatelessWidget {
                       },
                       child: SvgPicture.asset("assets/icons/eve.svg"),
                     ),
-                    SizedBox(width: 5.sp),
+                    SizedBox(width: 5.w),
                     Text(
                       "${event.createdAt}",
                       style: TextStyle(
@@ -295,7 +295,7 @@ class ItemUserEventProfile extends StatelessWidget {
                       },
                       child: SvgPicture.asset("assets/icons/time.svg"),
                     ),
-                    SizedBox(width: 5.sp),
+                    SizedBox(width: 5.w),
                     Text(
                       "${event.time}",
                       style: TextStyle(

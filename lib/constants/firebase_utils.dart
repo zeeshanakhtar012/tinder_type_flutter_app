@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 import '../controllers/controller_home.dart';
 
 class FirebaseUtils {
+  // String image=uploadImage(filePath, firebasePathWithFilename)
   static Future<String> uploadImage(
       String filePath, String firebasePathWithFilename,
       {Function(String url)? onSuccess,

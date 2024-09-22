@@ -1,5 +1,6 @@
 import 'package:blaxity/constants/fonts.dart';
 import 'package:blaxity/views/screens/screen_category.dart';
+import 'package:blaxity/views/screens/screen_signin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -45,7 +46,7 @@ class ScreenPasswordSuccessfull extends StatelessWidget {
             Spacer(),
             CustomButton(
               onTap: (){
-                Get.to(ScreenCategory());
+                Get.offAll(ScreenLogin());
               },
               text: "Continue",
               textColor: Colors.white,

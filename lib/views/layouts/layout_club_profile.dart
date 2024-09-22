@@ -5,7 +5,6 @@ import 'package:blaxity/views/layouts/item_event_profile.dart';
 import 'package:blaxity/views/screens/screen_view_description.dart';
 import 'package:blaxity/views/screens/screen_view_events.dart';
 import 'package:blaxity/views/screens/screen_view_user_photos.dart';
-import 'package:blaxity/views/screens/single_user_screens/screen_blaxiter_subscription_single_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
@@ -30,7 +29,6 @@ import '../../models/event.dart';
 import '../screens/screen_be_seen_details.dart';
 import '../screens/screen_event_edit_profile.dart';
 import '../screens/screen_subscription.dart';
-import '../screens/screen_subscription_type_profile.dart';
 import 'item_profile_details.dart';
 
 class LayoutClubProfile extends StatelessWidget {
@@ -126,7 +124,7 @@ class LayoutClubProfile extends StatelessWidget {
                             ? SvgPicture.asset(
                                 "assets/icons/icon_dimond.svg",
                               ).marginOnly(
-                                left: 8.sp,
+                                left: 8.w,
                               )
                             : SizedBox(),
                       ],
@@ -213,7 +211,7 @@ class LayoutClubProfile extends StatelessWidget {
                           ],
                         ),
                       ).paddingSymmetric(
-                        horizontal: 10.sp,
+                        horizontal: 10.w,
                       ),
                       Container(
                         height: height * .15,
@@ -236,8 +234,8 @@ class LayoutClubProfile extends StatelessWidget {
                               ),
                             ),
                             Positioned(
-                              bottom: 18.0.sp,
-                              left: 2.sp,
+                              bottom: 18.0.h,
+                              left: 2.w,
                               child: Container(
                                 height: 20.h,
                                 width: 50.w,
@@ -263,7 +261,7 @@ class LayoutClubProfile extends StatelessWidget {
                               child: Text(
                                 "Days",
                                 style: TextStyle(
-                                  fontSize: 12.sp,
+                                  fontSize: 12.w,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -272,7 +270,7 @@ class LayoutClubProfile extends StatelessWidget {
                           ],
                         ),
                       ).paddingSymmetric(
-                        horizontal: 10.sp,
+                        horizontal: 10.w,
                       ),
                       Container(
                         height: height * .15,
@@ -312,7 +310,7 @@ class LayoutClubProfile extends StatelessWidget {
                           ],
                         ),
                       ).paddingSymmetric(
-                        horizontal: 10.sp,
+                        horizontal: 10.w,
                       ),
                     ],
                   ),
@@ -329,8 +327,8 @@ class LayoutClubProfile extends StatelessWidget {
                         children: [
                           SvgPicture.asset("assets/icons/icon_right_tick.svg")
                               .marginOnly(
-                            top: 10.sp,
-                            bottom: 10.sp,
+                            top: 10.h,
+                            bottom: 10.h,
                           ),
                           Text(
                             "Verify Your Profile",
@@ -340,7 +338,7 @@ class LayoutClubProfile extends StatelessWidget {
                                   style: AppFonts.subtitle,
                                   "Enhance your credibility by verifying\nyour profile.")
                               .marginSymmetric(
-                            vertical: 8.sp,
+                            vertical: 8.w,
                           ),
                           CustomSelectbaleButton(
                             onTap: () {
@@ -475,7 +473,7 @@ class LayoutClubProfile extends StatelessWidget {
                               style: TextStyle(fontSize: 16.sp),
                               gradient: AppColors.buttonColor,
                             ).marginSymmetric(
-                              horizontal: 6.sp,
+                              horizontal: 6.w,
                             ),
                           Spacer(),
                           Icon(

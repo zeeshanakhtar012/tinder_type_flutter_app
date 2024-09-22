@@ -99,7 +99,7 @@ class _ItemChatState extends State<ItemChat> with SingleTickerProviderStateMixin
                             "Details",
                             style: TextStyle(color: Colors.white),
                           ).marginOnly(
-                            top: 10.sp,
+                            top: 10.h,
                           ),
                         ],
                       ),
@@ -113,8 +113,8 @@ class _ItemChatState extends State<ItemChat> with SingleTickerProviderStateMixin
                       child: Stack(
                         children: [
                           Positioned(
-                            top: 5.sp,
-                            right: 10.0.sp,
+                            top: 5.h,
+                            right: 10.0.w,
                             child: Container(
                               height: 20.h,
                               width: 20.h,
@@ -134,7 +134,7 @@ class _ItemChatState extends State<ItemChat> with SingleTickerProviderStateMixin
                             },
                           ),
                           Positioned(
-                            bottom: 5.sp,
+                            bottom: 5.h,
                             right: 0,
                             left: 0,
                             child: Text(

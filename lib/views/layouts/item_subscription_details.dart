@@ -79,7 +79,7 @@ class ItemSubscriptionDetails extends StatelessWidget {
                   child: Text("\$ ${subscription.price}",
                     style: AppFonts.subscriptionPrice,),
                 ).marginOnly(
-                  top: 15.sp,
+                  top: 15.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -116,14 +116,14 @@ class ItemSubscriptionDetails extends StatelessWidget {
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w600,
                         ),).marginOnly(
-                          left: 6.sp,
+                          left: 6.w,
                         ),
                       ],
                     );
                   },
                 ).marginOnly(
-                  left: 10.sp,
-                  top: 15.sp,
+                  left: 10.w,
+                  top: 15.h,
                 ),
               ],
             ),

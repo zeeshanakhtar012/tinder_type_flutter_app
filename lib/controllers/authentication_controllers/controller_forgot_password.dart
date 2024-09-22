@@ -65,12 +65,15 @@ class ForgotPasswordController extends GetxController {
   TextEditingController password = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
 
-  Future<void> UpdatePassword({required String email}) async {
+  Future<void> UpdatePassword({required String email,required String otp}) async {
     String otpText = otpController.text;
-    int otp = int.parse(otpText);
+    log("message1");
+    int _otp = int.parse(otp);
+    log("message1");
+
     String _password = password.text;
     String _confirmPassword = confirmPassword.text;
-
+log("T");
     isLoading.value = true;
 
     try {
@@ -81,7 +84,7 @@ class ForgotPasswordController extends GetxController {
         },
         body: jsonEncode({
           'email': email,
-          'otp': otp,
+          'otp': _otp,
           'password': _password,
           'password_confirmation': _confirmPassword,
         }),

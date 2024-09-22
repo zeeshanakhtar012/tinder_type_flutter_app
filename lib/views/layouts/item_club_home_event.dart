@@ -84,7 +84,7 @@ RxBool loading=false.obs;
                         ),
                         Text("Events", style: AppFonts.subscriptionTitle,)
                             .marginOnly(
-                          left: 10.sp,
+                          left: 10.w,
                         ),
                         Spacer(),
                         SvgPicture.asset(
@@ -145,7 +145,7 @@ RxBool loading=false.obs;
 
                             ),
                           ).marginOnly(
-                            left: 5.sp,
+                            left: 5.w,
                           ),
                         ),
 
@@ -164,7 +164,7 @@ RxBool loading=false.obs;
                           child: Text(
                               style: AppFonts.subtitle,
                               event.location?? "No Location").marginOnly(
-                            left: 6.sp,
+                            left: 6.w,
                           ),
                         ),
 
@@ -177,7 +177,7 @@ RxBool loading=false.obs;
                             style: AppFonts.subtitle,
                             event.date!
                         ).marginOnly(
-                          left: 6.sp,
+                          left: 6.w,
                         )
                       ],
                     ).marginSymmetric(vertical: 3.h),
@@ -187,7 +187,7 @@ RxBool loading=false.obs;
                         Text(
                             style: AppFonts.subtitle,
                             event.time!).marginOnly(
-                          left: 5.sp,
+                          left: 5.w,
                         )
                       ],
                     ).marginSymmetric(vertical: 3.h),
@@ -199,7 +199,7 @@ RxBool loading=false.obs;
                         Text(
                             style: AppFonts.subtitle,
                             "${event.attendeesCount ?? 0} members").marginOnly(
-                          left: 6.sp,
+                          left: 6.w,
                         )
                       ],
                     ).marginSymmetric(vertical: 3.h),
@@ -211,7 +211,7 @@ RxBool loading=false.obs;
                         Text(
                             style: AppFonts.subtitle,
                             "${event.entrancePrice} \$").marginOnly(
-                          left: 6.sp,
+                          left: 6.w,
                         )
                       ],
                     ).marginSymmetric(vertical: 3.h),

@@ -19,7 +19,7 @@ class ScreenViewCoupleConnections extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              Get.back();
+             Navigator.pop(context);
             },
             icon: Icon(
               Icons.arrow_back_ios,
@@ -44,7 +44,7 @@ class ScreenViewCoupleConnections extends StatelessWidget {
               height: 10.h,
             ),
             Expanded(
-              child: GridView.builder(
+              child:(connections.isNotEmpty)? GridView.builder(
                 itemCount: connections.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 6,crossAxisSpacing: 10,mainAxisSpacing: 10),
                 padding: EdgeInsets.all(10.h), itemBuilder: (BuildContext context, int index) {
@@ -90,7 +90,7 @@ class ScreenViewCoupleConnections extends StatelessWidget {
                 );
               },
 
-              ),
+              ):Center(child: Text("No Connections"),),
             )
 
 

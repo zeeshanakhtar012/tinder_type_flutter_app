@@ -96,7 +96,7 @@ class ItemEventCouple extends StatelessWidget {
                 Text("Requested to join your event"),
               ],
             ).marginOnly(
-              left: 6.sp,
+              left: 6.w,
             ),
             Spacer(),
             IconButton(onPressed: () {},
@@ -132,7 +132,7 @@ class ItemEventCouple extends StatelessWidget {
                 },
               );
             }).marginOnly(
-              left: 15.sp,
+              left: 15.w,
             ),
             SelectableButton(
               text: 'Message',
@@ -177,11 +177,11 @@ class ItemEventCouple extends StatelessWidget {
                 }
               },
             ).marginOnly(
-              left: 15.sp,
+              left: 15.w,
             ),
           ],
         ).marginOnly(
-          top: 20.sp,
+          top: 20.h,
         ):SelectableButton(
     text: 'Message',
     isSelected: false,

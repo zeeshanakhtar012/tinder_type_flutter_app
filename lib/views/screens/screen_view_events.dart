@@ -41,7 +41,7 @@ class ScreenViewEvents extends StatelessWidget {
               height: 30.h,
             ),
             Expanded(
-              child: GridView.builder(
+              child:(eventActions.isNotEmpty)? GridView.builder(
                 itemCount: eventActions.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,crossAxisSpacing: 10,mainAxisSpacing: 10),
               padding: EdgeInsets.all(10.h), itemBuilder: (BuildContext context, int index) {
@@ -50,7 +50,7 @@ class ScreenViewEvents extends StatelessWidget {
                                           );
                 },
 
-              ),
+              ):Center(child: Text("No Events"),),
             )
 
 

@@ -43,7 +43,7 @@ class ScreenViewConnections extends StatelessWidget {
               height: 10.h,
             ),
             Expanded(
-              child: GridView.builder(
+              child: (connections.isNotEmpty)?GridView.builder(
                 itemCount: connections.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 6,crossAxisSpacing: 10,mainAxisSpacing: 10),
                 padding: EdgeInsets.all(10.h), itemBuilder: (BuildContext context, int index) {
@@ -89,7 +89,7 @@ class ScreenViewConnections extends StatelessWidget {
                 );
               },
 
-              ),
+              ):Center(child: Text("No Connections"),),
             )
 
 

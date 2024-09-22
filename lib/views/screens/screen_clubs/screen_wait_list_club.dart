@@ -1,6 +1,5 @@
 import 'package:blaxity/models/user.dart';
 import 'package:blaxity/views/home_page/home_page.dart';
-import 'package:blaxity/views/screens/screen_clubs/screen_blaxiter_subscription_club.dart';
 import 'package:blaxity/views/screens/screen_subscription.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,12 +40,12 @@ User user;
               textColor: Colors.white,
               buttonGradient: AppColors.buttonColor,
             ).marginOnly(
-              top: 20.sp,
+              top: 20.h,
             ),
           ],
         ).marginSymmetric(
-          horizontal: 15.sp,
-          vertical: 15.sp,
+          horizontal: 15.w,
+          vertical: 15.h,
         ),
       ),
     );

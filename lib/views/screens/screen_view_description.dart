@@ -40,34 +40,37 @@ class ScreenViewDescription extends StatelessWidget {
             SizedBox(
               height: 30.h,
             ),
-            GradientWidget(
-              child: TextFormField(
-                maxLength: 180,
-                readOnly: true,
-                maxLines: 14,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600),
-                controller: TextEditingController(text: description),
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-
-                    ),
-                    // counter: Text(""),
-                    hintText: "No Description",
-                    hintStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400)
-
-
-                ),
+        Container(
+          padding: EdgeInsets.all(12.0),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Color(0xFFA7713F),
+            ),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: TextFormField(
+            maxLength: 180,
+            readOnly: true,
+            maxLines: 14,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+            ),
+            controller: TextEditingController(text: description),
+            decoration: InputDecoration(
+              border: InputBorder.none, // Remove the TextFormField border
+              hintText: "No Description",
+              hintStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w400,
               ),
             ),
+          ),
+        ),
 
-          ],
+        ],
         ).marginSymmetric(
           horizontal: 15.sp,
           vertical: 10.sp,

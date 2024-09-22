@@ -17,15 +17,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import '../../../constants/ApiEndPoint.dart';
-import '../../../constants/fonts.dart';
-import '../../../widgets/custom_button.dart';
-import '../../../widgets/custom_divider_gradient.dart';
-import '../../../widgets/custom_selectable_button.dart';
-import '../../layouts/item_profile_details.dart';
-import '../../screens/screen_match_person_profile.dart';
+
 import '../../screens/screen_edit_profile.dart';
-import '../../screens/screen_subscription_type_profile.dart';
 
 class LayoutProfile extends StatefulWidget {
   const LayoutProfile({super.key});
@@ -36,23 +29,9 @@ class LayoutProfile extends StatefulWidget {
 
 class _LayoutProfileState extends State<LayoutProfile> {
   ControllerHome _controllerHome = Get.put(ControllerHome());
-  int _selectedButtonIndex = -1;
-
-  // void _onAvatarTap(int index) {
-  //   setState(() {
-  //     _selectedButtonIndex = index;
-  //     if (_selectedButtonIndex == 3)
-  //       Get.to(ScreenMatchPersonProfile());
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
-    // _controllerHome.fetchUserInfo();
-    // User user=_.user;
-    // log(_controllerHome.user.value!.user.reference.shareLink);
-    // log(_controllerHome.user.value!.user.reference.generatedQrCode!);
-
     final height = MediaQuery.sizeOf(context).height * 1;
     final width = MediaQuery.sizeOf(context).width * 1;
     return Scaffold(

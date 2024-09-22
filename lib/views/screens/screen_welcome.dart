@@ -1,15 +1,10 @@
-import 'package:blaxity/constants/firebase_utils.dart';
 import 'package:blaxity/controllers/authentication_controllers/controller_sign_in_.dart';
 import 'package:blaxity/controllers/controller_home.dart';
-import 'package:blaxity/controllers/controller_payment.dart';
-import 'package:blaxity/models/user.dart';
 import 'package:blaxity/views/screens/screen_subscription.dart';
-import 'package:blaxity/views/screens/single_user_screens/screen_blaxiter_subscription_single_user.dart';
 import 'package:blaxity/views/screens/single_user_screens/screen_wait_list_sinlge_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../constants/colors.dart';
 import '../../constants/fonts.dart';
 import '../../widgets/custom_selectable_button.dart';

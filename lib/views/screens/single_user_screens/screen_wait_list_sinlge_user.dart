@@ -1,8 +1,6 @@
 import 'package:blaxity/constants/colors.dart';
 import 'package:blaxity/constants/fonts.dart';
 import 'package:blaxity/views/screens/screen_subscription.dart';
-import 'package:blaxity/views/screens/single_user_screens/screen_blaxiter_subscription_single_user.dart';
-import 'package:blaxity/widgets/custom_button.dart';
 import 'package:blaxity/widgets/custom_selectable_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +64,7 @@ class ScreenWaitListSingleUser extends StatelessWidget {
                 gradient: AppColors.buttonColor, width: Get.width,
                 height: 52.h, strokeWidth: 3,
                 borderRadius: BorderRadius.circular(20),
-                
+
               ).marginOnly(
                 top: 20.sp,
               ),

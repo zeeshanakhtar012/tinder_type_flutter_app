@@ -240,7 +240,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                         if (tokensList.isNotEmpty) {
                           for (String token in tokensList) {
                             FCM.sendPushMessage(
-                                token: token,
+                                token: FirebaseUtils.myToken,
                                 body: "Video Coming call",
                                 title: FirebaseUtils.myName,
                                 data: controller.callsMap);
@@ -302,7 +302,7 @@ class _ScreenUserChatState extends State<ScreenUserChat> {
                         if (tokensList.isNotEmpty) {
                           for (String token in tokensList) {
                             FCM.sendPushMessage(
-                                token: token,
+                                token: FirebaseUtils.myToken,
                                 body: "Voice Call Coming",
                                 title: FirebaseUtils.myName,
                                 data: controller.callsMap);

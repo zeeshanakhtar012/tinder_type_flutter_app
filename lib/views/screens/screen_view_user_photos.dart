@@ -35,7 +35,7 @@ class ScreenViewUserPhotos extends StatelessWidget {
           style: AppFonts.subscriptionBlaxityGold,
           gradient: AppColors.buttonColor,
         ).marginSymmetric(vertical: 20.h,horizontal: 20.w),
-        Expanded(child: GridView.builder(
+        Expanded(child: (imagesList.isNotEmpty)?GridView.builder(
           padding: EdgeInsets.all(15),
           itemCount: imagesList.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,
@@ -63,7 +63,7 @@ class ScreenViewUserPhotos extends StatelessWidget {
               )
             ),
           );
-        }, ))
+        }, ):Center(child: Text("No Photos"),),),
       ],),
     );
   }
