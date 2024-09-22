@@ -8,6 +8,7 @@ import 'package:blaxity/models/user.dart';
 import 'package:blaxity/views/home_page/home_layouts/layout_couple_profile.dart';
 import 'package:blaxity/views/home_page/home_layouts/layout_single_user_profile.dart';
 import 'package:blaxity/views/home_page/home_page.dart';
+import 'package:blaxity/views/screens/call/controller_call.dart';
 import 'package:blaxity/views/screens/call/screen_agora_audio_call.dart';
 import 'package:blaxity/views/screens/call/screen_agora_video_call.dart';
 import 'package:blaxity/views/screens/personal_information_screens_couple/screen_about_details_page7.dart';
@@ -144,8 +145,7 @@ Future<Widget> checkLoginStatus() async {
         // Get.offAll(ScreenSelfieSingleUser(step: " 7 of 11", user: user));
       }
       else if (user.reference==null||user.reference!.description==null){
-        screen=ScreenSelfieSingleUser(step: "8 of 11",user: user,);
-        // Get.offAll(ScreenDescribe(step: "8 of 11",user: user,));
+        Get.offAll(ScreenDescribe(step: "8 of 11",user: user,));
       }
       else if(user.reference!.eyeColor!.isEmpty){
         screen=ScreenAboutDetails(step: "9 of 11",user: user,);
@@ -423,7 +423,7 @@ class _MyAppState extends State<MyApp> {
 
         case Event.actionCallDecline:
           log('User declined the call');
-          await _handleDeclineAction(); // Handle the decline action
+          await _handleDeclineAction(data); // Handle the decline action
           break;
 
         default:
@@ -456,17 +456,23 @@ class _MyAppState extends State<MyApp> {
     log('Finished handling answer action');
   }
 
-  Future<void> _handleDeclineAction() async {
-    log("Call was declined.");
-    try {
-      if (engine != null) {
-        await engine.leaveChannel();
-        await engine.release();
-
-      }
-      Navigator.pop(context);
-    } catch (e) {
-      log("Error in releasing Agora engine: $e");
+  Future<void> _handleDeclineAction(Map<String,dynamic> data) async {
+    if (data["callType"] == "AudioCall") {
+      log('Navigating to AgoraAudioCall...');
+      CallController callController =Get.put(CallController(token: data['audioCall'], channelId: data['channelName'], isVideoCall: false));
+      callController.initAgora();
+      callController.endCall();
+    }  else  {
+      CallController callController =Get.put(CallController(token: data['videoCall'], channelId: data['channelName'], isVideoCall: true));
+      callController.initAgora();
+      callController.endCall();
+      // log('Navigating to AgoraVideoCall...');
+      // Get.to(() => AgoraVideoCall(
+      //   channelId: data['channelName'],
+      //   callerName: data['callerName'] ?? "Test",
+      //   callerImageUrl: data['callerImageUrl']?? "Tst",
+      //   token: data['videoCall'],
+      // ));
     }
   }
 
